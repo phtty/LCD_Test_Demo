@@ -245,10 +245,7 @@ void DMA1_Stream2_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
 	/* USER CODE BEGIN USART2_IRQn 0 */
-	if (((isrflags & USART_SR_IDLE) != RESET) && ((cr1its & USART_CR1_IDLEIE) != RESET)) {
-		HAL_UART_IdleCpltCallback(&huart2);
-		return;
-	}
+
 	/* USER CODE END USART2_IRQn 0 */
 	HAL_UART_IRQHandler(&huart2);
 	/* USER CODE BEGIN USART2_IRQn 1 */
@@ -271,10 +268,12 @@ void SPI4_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
 	ST7735_LCD_Driver.FillRect(&st7735_pObj, 0, 0, ST7735Ctx.Width, ST7735Ctx.Height, BLACK);
 	LCD_ShowString(4, 4, ST7735Ctx.Width, 16, 12, (uint8_t *)(huart->pRxBuffPtr));
-	HAL_UART_Receive_DMA(&huart2, text_buff, sizeof(text_buff));
+
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart2, text_buff, 32);
+	__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
 }
 /* USER CODE END 1 */

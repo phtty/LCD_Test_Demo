@@ -115,11 +115,12 @@ int main(void)
 	LCD_Light(100, 200);
 	ST7735_LCD_Driver.FillRect(&st7735_pObj, 0, 0, ST7735Ctx.Width, ST7735Ctx.Height, BLACK);
 	LCD_ShowString(4, 4, ST7735Ctx.Width, 16, 12, (uint8_t *)"LCD IS READY.");
-	HAL_Delay(500);
+	HAL_UART_Transmit_DMA(&huart2, (uint8_t *)"usart test ok\n", sizeof("usart test ok"));
+
+	HAL_Delay(1000);
 	ST7735_LCD_Driver.FillRect(&st7735_pObj, 0, 0, ST7735Ctx.Width, ST7735Ctx.Height, BLACK);
 
-	HAL_UART_Receive_IT(&huart2, text_buff, 1);
-	while (1) {
+		while (1) {
 		HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 		HAL_Delay(500);
 		/* USER CODE END WHILE */
