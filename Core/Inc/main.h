@@ -31,7 +31,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stm32h7xx_it.h"
+#include "lcd.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

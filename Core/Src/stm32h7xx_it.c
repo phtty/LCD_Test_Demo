@@ -41,7 +41,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern uint8_t text_buff[32];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -55,7 +55,11 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-
+extern DMA_HandleTypeDef hdma_spi4_tx;
+extern SPI_HandleTypeDef hspi4;
+extern DMA_HandleTypeDef hdma_usart2_tx;
+extern DMA_HandleTypeDef hdma_usart2_rx;
+extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -193,6 +197,84 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32h7xx.s).                    */
 /******************************************************************************/
 
-/* USER CODE BEGIN 1 */
+/**
+ * @brief This function handles DMA1 stream0 global interrupt.
+ */
+void DMA1_Stream0_IRQHandler(void)
+{
+	/* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
 
+	/* USER CODE END DMA1_Stream0_IRQn 0 */
+	HAL_DMA_IRQHandler(&hdma_spi4_tx);
+	/* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
+
+	/* USER CODE END DMA1_Stream0_IRQn 1 */
+}
+
+/**
+ * @brief This function handles DMA1 stream1 global interrupt.
+ */
+void DMA1_Stream1_IRQHandler(void)
+{
+	/* USER CODE BEGIN DMA1_Stream1_IRQn 0 */
+
+	/* USER CODE END DMA1_Stream1_IRQn 0 */
+	HAL_DMA_IRQHandler(&hdma_usart2_tx);
+	/* USER CODE BEGIN DMA1_Stream1_IRQn 1 */
+
+	/* USER CODE END DMA1_Stream1_IRQn 1 */
+}
+
+/**
+ * @brief This function handles DMA1 stream2 global interrupt.
+ */
+void DMA1_Stream2_IRQHandler(void)
+{
+	/* USER CODE BEGIN DMA1_Stream2_IRQn 0 */
+
+	/* USER CODE END DMA1_Stream2_IRQn 0 */
+	HAL_DMA_IRQHandler(&hdma_usart2_rx);
+	/* USER CODE BEGIN DMA1_Stream2_IRQn 1 */
+
+	/* USER CODE END DMA1_Stream2_IRQn 1 */
+}
+
+/**
+ * @brief This function handles USART2 global interrupt.
+ */
+void USART2_IRQHandler(void)
+{
+	/* USER CODE BEGIN USART2_IRQn 0 */
+	if (((isrflags & USART_SR_IDLE) != RESET) && ((cr1its & USART_CR1_IDLEIE) != RESET)) {
+		HAL_UART_IdleCpltCallback(&huart2);
+		return;
+	}
+	/* USER CODE END USART2_IRQn 0 */
+	HAL_UART_IRQHandler(&huart2);
+	/* USER CODE BEGIN USART2_IRQn 1 */
+
+	/* USER CODE END USART2_IRQn 1 */
+}
+
+/**
+ * @brief This function handles SPI4 global interrupt.
+ */
+void SPI4_IRQHandler(void)
+{
+	/* USER CODE BEGIN SPI4_IRQn 0 */
+
+	/* USER CODE END SPI4_IRQn 0 */
+	HAL_SPI_IRQHandler(&hspi4);
+	/* USER CODE BEGIN SPI4_IRQn 1 */
+
+	/* USER CODE END SPI4_IRQn 1 */
+}
+
+/* USER CODE BEGIN 1 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	ST7735_LCD_Driver.FillRect(&st7735_pObj, 0, 0, ST7735Ctx.Width, ST7735Ctx.Height, BLACK);
+	LCD_ShowString(4, 4, ST7735Ctx.Width, 16, 12, (uint8_t *)(huart->pRxBuffPtr));
+	HAL_UART_Receive_DMA(&huart2, text_buff, sizeof(text_buff));
+}
 /* USER CODE END 1 */

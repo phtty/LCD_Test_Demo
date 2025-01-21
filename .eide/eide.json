@@ -50,6 +50,12 @@
               },
               {
                 "path": "Core/Src/tim.c"
+              },
+              {
+                "path": "Core/Src/dma.c"
+              },
+              {
+                "path": "Core/Src/usart.c"
               }
             ],
             "folders": []
@@ -77,6 +83,12 @@
               },
               {
                 "path": "Core/Inc/tim.h"
+              },
+              {
+                "path": "Core/Inc/dma.h"
+              },
+              {
+                "path": "Core/Inc/usart.h"
               }
             ],
             "folders": []

@@ -45,6 +45,19 @@ ST7735_IO_t st7735_pIO = {
 ST7735_Object_t st7735_pObj;
 uint32_t st7735_id;
 
+void LCD_Init(void)
+{
+	ST7735Ctx.Orientation = ST7735_ORIENTATION_LANDSCAPE_ROT180;
+	ST7735Ctx.Panel		  = HannStar_Panel;
+	ST7735Ctx.Type		  = ST7735_0_9_inch_screen;
+
+	ST7735_RegisterBusIO(&st7735_pObj, &st7735_pIO);
+	ST7735_LCD_Driver.Init(&st7735_pObj, ST7735_FORMAT_RBG565, &ST7735Ctx);
+	ST7735_LCD_Driver.ReadID(&st7735_pObj, &st7735_id);
+
+	LCD_SetBrightness(0);
+}
+
 void LCD_Test(void)
 {
 	uint8_t text[32];
@@ -263,14 +276,14 @@ void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uin
 	uint8_t x0 = x;
 	width += x;
 	height += y;
-	while ((*p <= '~') && (*p >= ' ')) // 判断是不是非法字符!
+	while ((*p <= '~') && (*p >= ' ')) // 判断是不是非法字符
 	{
 		if (x >= width) {
 			x = x0;
 			y += size;
 		}
 		if (y >= height)
-			break; // 退出
+			break; // 若行数超过屏幕，则不再继续显示
 		LCD_ShowChar(x, y, *p, size, 0);
 		x += size / 2;
 		p++;
