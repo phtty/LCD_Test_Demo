@@ -101,8 +101,7 @@ int32_t ST7735_RegisterBusIO(ST7735_Object_t *pObj, ST7735_IO_t *pIO)
 
 	if (pObj == NULL)
 		ret = ST7735_ERROR;
-	else
-	{
+	else {
 		pObj->IO.Init	  = pIO->Init;
 		pObj->IO.DeInit	  = pIO->DeInit;
 		pObj->IO.Address  = pIO->Address;
@@ -139,12 +138,9 @@ int32_t ST7735_Init(ST7735_Object_t *pObj, uint32_t ColorCoding, ST7735_Ctx_t *p
 	uint8_t tmp;
 	int32_t ret;
 
-	if (pObj == NULL)
-	{
+	if (pObj == NULL) {
 		ret = ST7735_ERROR;
-	}
-	else
-	{
+	} else {
 		/* Out of sleep mode, 0 args, delay 120ms */
 		tmp = 0x00U;
 		ret = st7735_write_reg(&pObj->Ctx, ST7735_SW_RESET, &tmp, 0);
@@ -343,20 +339,13 @@ int32_t ST7735_ReadID(ST7735_Object_t *pObj, uint32_t *Id)
 	int32_t ret;
 	uint8_t tmp[3];
 
-	if (st7735_read_reg(&pObj->Ctx, ST7735_READ_ID1, &tmp[0]) != ST7735_OK)
-	{
+	if (st7735_read_reg(&pObj->Ctx, ST7735_READ_ID1, &tmp[0]) != ST7735_OK) {
 		ret = ST7735_ERROR;
-	}
-	else if (st7735_read_reg(&pObj->Ctx, ST7735_READ_ID2, &tmp[1]) != ST7735_OK)
-	{
+	} else if (st7735_read_reg(&pObj->Ctx, ST7735_READ_ID2, &tmp[1]) != ST7735_OK) {
 		ret = ST7735_ERROR;
-	}
-	else if (st7735_read_reg(&pObj->Ctx, ST7735_READ_ID3, &tmp[2]) != ST7735_OK)
-	{
+	} else if (st7735_read_reg(&pObj->Ctx, ST7735_READ_ID3, &tmp[2]) != ST7735_OK) {
 		ret = ST7735_ERROR;
-	}
-	else
-	{
+	} else {
 		*Id = ((uint32_t)tmp[2]) << 0 | ((uint32_t)tmp[1]) << 8 | ((uint32_t)tmp[0]) << 16;
 		//*Id = __rbit(*Id);
 		ret = ST7735_OK;
@@ -453,26 +442,18 @@ int32_t ST7735_SetOrientation(ST7735_Object_t *pObj, ST7735_Ctx_t *pDriver)
 	int32_t ret;
 	uint8_t tmp;
 
-	if ((pDriver->Orientation == ST7735_ORIENTATION_PORTRAIT) || (pDriver->Orientation == ST7735_ORIENTATION_PORTRAIT_ROT180))
-	{
-		if (pDriver->Type == ST7735_0_9_inch_screen)
-		{
+	if ((pDriver->Orientation == ST7735_ORIENTATION_PORTRAIT) || (pDriver->Orientation == ST7735_ORIENTATION_PORTRAIT_ROT180)) {
+		if (pDriver->Type == ST7735_0_9_inch_screen) {
 			ST7735Ctx.Width	 = ST7735_0_9_WIDTH;
 			ST7735Ctx.Height = ST7735_0_9_HEIGHT;
-		}
-		else if (pDriver->Type == ST7735_1_8_inch_screen || pDriver->Type == ST7735_1_8a_inch_screen)
-		{
+		} else if (pDriver->Type == ST7735_1_8_inch_screen || pDriver->Type == ST7735_1_8a_inch_screen) {
 			ST7735Ctx.Width	 = ST7735_1_8_WIDTH;
 			ST7735Ctx.Height = ST7735_1_8_HEIGHT;
 		}
-	}
-	else if (pDriver->Type == ST7735_0_9_inch_screen)
-	{
+	} else if (pDriver->Type == ST7735_0_9_inch_screen) {
 		ST7735Ctx.Width	 = ST7735_0_9_HEIGHT;
 		ST7735Ctx.Height = ST7735_0_9_WIDTH;
-	}
-	else if (pDriver->Type == ST7735_1_8_inch_screen || pDriver->Type == ST7735_1_8a_inch_screen)
-	{
+	} else if (pDriver->Type == ST7735_1_8_inch_screen || pDriver->Type == ST7735_1_8a_inch_screen) {
 		ST7735Ctx.Width	 = ST7735_1_8_HEIGHT;
 		ST7735Ctx.Height = ST7735_1_8_WIDTH;
 	}
@@ -519,47 +500,31 @@ int32_t ST7735_SetCursor(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos)
 	uint8_t tmp;
 
 	/* Cursor calibration */
-	if (ST7735Ctx.Orientation <= ST7735_ORIENTATION_PORTRAIT_ROT180)
-	{
-		if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
-		{  // 0.96 ST7735
-			if (ST7735Ctx.Panel == HannStar_Panel)
-			{
+	if (ST7735Ctx.Orientation <= ST7735_ORIENTATION_PORTRAIT_ROT180) {
+		if (ST7735Ctx.Type == ST7735_0_9_inch_screen) { // 0.96 ST7735
+			if (ST7735Ctx.Panel == HannStar_Panel) {
 				Xpos += 26;
 				Ypos += 1;
-			}
-			else
-			{  // BOE Panel
+			} else { // BOE Panel
 				Xpos += 24;
 				Ypos += 0;
 			}
-		}
-		else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen)
-		{
-			if (ST7735Ctx.Panel == BOE_Panel)
-			{
+		} else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen) {
+			if (ST7735Ctx.Panel == BOE_Panel) {
 				Xpos += 2;
 				Ypos += 1;
 			}
 		}
-	}
-	else if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
-	{
-		if (ST7735Ctx.Panel == HannStar_Panel)
-		{  // 0.96 ST7735
+	} else if (ST7735Ctx.Type == ST7735_0_9_inch_screen) {
+		if (ST7735Ctx.Panel == HannStar_Panel) { // 0.96 ST7735
 			Xpos += 1;
 			Ypos += 26;
-		}
-		else
-		{  // BOE Panel
+		} else { // BOE Panel
 			Xpos += 0;
 			Ypos += 24;
 		}
-	}
-	else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen)
-	{
-		if (ST7735Ctx.Panel == BOE_Panel)
-		{
+	} else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen) {
+		if (ST7735Ctx.Panel == BOE_Panel) {
 			Xpos += 1;
 			Ypos += 2;
 		}
@@ -619,31 +584,22 @@ int32_t ST7735_DrawBitmap(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos, u
 	/* X = 0, cursor is on Top corner */
 	y_pos = ST7735Ctx.Height - Ypos - height;
 
-	if (ST7735_SetDisplayWindow(pObj, Xpos, y_pos, width, height) != ST7735_OK)
-	{
+	if (ST7735_SetDisplayWindow(pObj, Xpos, y_pos, width, height) != ST7735_OK) {
 		ret = ST7735_ERROR;
-	}
-	else
-	{
+	} else {
 		/* Set GRAM write direction and BGR = 0 */
 		tmp = ST7735Ctx.Panel == HannStar_Panel ? (uint8_t)OrientationTab[ST7735Ctx.Orientation][0] | LCD_BGR : (uint8_t)OrientationTab[ST7735Ctx.Orientation][0] | LCD_RGB;
 
-		if (st7735_write_reg(&pObj->Ctx, ST7735_MADCTL, &tmp, 1) != ST7735_OK)
-		{
+		if (st7735_write_reg(&pObj->Ctx, ST7735_MADCTL, &tmp, 1) != ST7735_OK) {
 			ret = ST7735_ERROR;
 		} /* Set Cursor */
-		else if (ST7735_SetCursor(pObj, Xpos, y_pos) != ST7735_OK)
-		{
+		else if (ST7735_SetCursor(pObj, Xpos, y_pos) != ST7735_OK) {
 			ret = ST7735_ERROR;
-		}
-		else
-		{
-			do
-			{
+		} else {
+			do {
 				pixel_val[0] = *(pbmp + 1);
 				pixel_val[1] = *(pbmp);
-				if (st7735_send_data(&pObj->Ctx, pixel_val, 2U) != ST7735_OK)
-				{
+				if (st7735_send_data(&pObj->Ctx, pixel_val, 2U) != ST7735_OK) {
 					ret = ST7735_ERROR;
 					break;
 				}
@@ -679,22 +635,15 @@ int32_t ST7735_FillRGBRect(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos, 
 	uint8_t *rgb_data = pData;
 	uint32_t i, j;
 
-	if (((Xpos + Width) > ST7735Ctx.Width) || ((Ypos + Height) > ST7735Ctx.Height))
-	{
+	if (((Xpos + Width) > ST7735Ctx.Width) || ((Ypos + Height) > ST7735Ctx.Height)) {
 		ret = ST7735_ERROR;
 	} /* Set Cursor */
-	else
-	{
-		for (j = 0; j < Height; j++)
-		{
-			if (ST7735_SetCursor(pObj, Xpos, Ypos + j) != ST7735_OK)
-			{
+	else {
+		for (j = 0; j < Height; j++) {
+			if (ST7735_SetCursor(pObj, Xpos, Ypos + j) != ST7735_OK) {
 				ret = ST7735_ERROR;
-			}
-			else
-			{
-				for (i = 0; i < Width; i++)
-				{
+			} else {
+				for (i = 0; i < Width; i++) {
 					pdata[2U * i]		 = (uint8_t)(*(rgb_data));
 					pdata[(2U * i) + 1U] = (uint8_t)(*(rgb_data + 1));
 					rgb_data += 2;
@@ -723,18 +672,13 @@ int32_t ST7735_DrawHLine(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos, ui
 	uint32_t i;
 	static uint8_t pdata[640];
 
-	if ((Xpos + Length) > ST7735Ctx.Width)
-	{
+	if ((Xpos + Length) > ST7735Ctx.Width) {
 		ret = ST7735_ERROR;
 	} /* Set Cursor */
-	else if (ST7735_SetCursor(pObj, Xpos, Ypos) != ST7735_OK)
-	{
+	else if (ST7735_SetCursor(pObj, Xpos, Ypos) != ST7735_OK) {
 		ret = ST7735_ERROR;
-	}
-	else
-	{
-		for (i = 0; i < Length; i++)
-		{
+	} else {
+		for (i = 0; i < Length; i++) {
 			/* Exchange LSB and MSB to fit LCD specification */
 			pdata[2U * i]		 = (uint8_t)(Color >> 8);
 			pdata[(2U * i) + 1U] = (uint8_t)(Color);
@@ -763,16 +707,11 @@ int32_t ST7735_DrawVLine(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos, ui
 	int32_t ret = ST7735_OK;
 	uint32_t counter;
 
-	if ((Ypos + Length) > ST7735Ctx.Height)
-	{
+	if ((Ypos + Length) > ST7735Ctx.Height) {
 		ret = ST7735_ERROR;
-	}
-	else
-	{
-		for (counter = 0; counter < Length; counter++)
-		{
-			if (ST7735_SetPixel(pObj, Xpos, Ypos + counter, Color) != ST7735_OK)
-			{
+	} else {
+		for (counter = 0; counter < Length; counter++) {
+			if (ST7735_SetPixel(pObj, Xpos, Ypos + counter, Color) != ST7735_OK) {
 				ret = ST7735_ERROR;
 				break;
 			}
@@ -797,10 +736,8 @@ int32_t ST7735_FillRect(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos, uin
 	int32_t ret = ST7735_OK;
 	uint32_t i, y_pos = Ypos;
 
-	for (i = 0; i < Height; i++)
-	{
-		if (ST7735_DrawHLine(pObj, Xpos, y_pos, Width, Color) != ST7735_OK)
-		{
+	for (i = 0; i < Height; i++) {
+		if (ST7735_DrawHLine(pObj, Xpos, y_pos, Width, Color) != ST7735_OK) {
 			ret = ST7735_ERROR;
 			break;
 		}
@@ -827,16 +764,12 @@ int32_t ST7735_SetPixel(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos, uin
 	color = (uint16_t)((uint16_t)Color << 8);
 	color |= (uint16_t)((uint16_t)(Color >> 8));
 
-	if ((Xpos >= ST7735Ctx.Width) || (Ypos >= ST7735Ctx.Height))
-	{
+	if ((Xpos >= ST7735Ctx.Width) || (Ypos >= ST7735Ctx.Height)) {
 		ret = ST7735_ERROR;
 	} /* Set Cursor */
-	else if (ST7735_SetCursor(pObj, Xpos, Ypos) != ST7735_OK)
-	{
+	else if (ST7735_SetCursor(pObj, Xpos, Ypos) != ST7735_OK) {
 		ret = ST7735_ERROR;
-	}
-	else
-	{
+	} else {
 		/* Write RAM data */
 		if (st7735_send_data(&pObj->Ctx, (uint8_t *)&color, 2) != ST7735_OK)
 			ret = ST7735_ERROR;
@@ -930,47 +863,31 @@ static int32_t ST7735_SetDisplayWindow(ST7735_Object_t *pObj, uint32_t Xpos, uin
 	uint8_t tmp;
 
 	/* Cursor calibration */
-	if (ST7735Ctx.Orientation <= ST7735_ORIENTATION_PORTRAIT_ROT180)
-	{
-		if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
-		{  // 0.96 ST7735
-			if (ST7735Ctx.Panel == HannStar_Panel)
-			{
+	if (ST7735Ctx.Orientation <= ST7735_ORIENTATION_PORTRAIT_ROT180) {
+		if (ST7735Ctx.Type == ST7735_0_9_inch_screen) { // 0.96 ST7735
+			if (ST7735Ctx.Panel == HannStar_Panel) {
 				Xpos += 26;
 				Ypos += 1;
-			}
-			else
-			{  // BOE Panel
+			} else { // BOE Panel
 				Xpos += 24;
 				Ypos += 0;
 			}
-		}
-		else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen)
-		{
-			if (ST7735Ctx.Panel == BOE_Panel)
-			{
+		} else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen) {
+			if (ST7735Ctx.Panel == BOE_Panel) {
 				Xpos += 2;
 				Ypos += 1;
 			}
 		}
-	}
-	else if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
-	{
-		if (ST7735Ctx.Panel == HannStar_Panel)
-		{  // 0.96 ST7735
+	} else if (ST7735Ctx.Type == ST7735_0_9_inch_screen) {
+		if (ST7735Ctx.Panel == HannStar_Panel) { // 0.96 ST7735
 			Xpos += 1;
 			Ypos += 26;
-		}
-		else
-		{  // BOE Panel
+		} else { // BOE Panel
 			Xpos += 1;
 			Ypos += 24;
 		}
-	}
-	else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen)
-	{
-		if (ST7735Ctx.Panel == BOE_Panel)
-		{
+	} else if (ST7735Ctx.Type == ST7735_1_8a_inch_screen) {
+		if (ST7735Ctx.Panel == BOE_Panel) {
 			Xpos += 1;
 			Ypos += 2;
 		}
@@ -1068,8 +985,7 @@ static int32_t ST7735_IO_Delay(ST7735_Object_t *pObj, uint32_t Delay)
 {
 	uint32_t tickstart;
 	tickstart = pObj->IO.GetTick();
-	while ((pObj->IO.GetTick() - tickstart) < Delay)
-	{
+	while ((pObj->IO.GetTick() - tickstart) < Delay) {
 	}
 	return ST7735_OK;
 }

@@ -29,6 +29,7 @@ SPI_HandleTypeDef hspi4;
 /* SPI4 init function */
 void MX_SPI4_Init(void)
 {
+
 	/* USER CODE BEGIN SPI4_Init 0 */
 
 	/* USER CODE END SPI4_Init 0 */
@@ -58,8 +59,9 @@ void MX_SPI4_Init(void)
 	hspi4.Init.MasterReceiverAutoSusp	  = SPI_MASTER_RX_AUTOSUSP_DISABLE;
 	hspi4.Init.MasterKeepIOState		  = SPI_MASTER_KEEP_IO_STATE_DISABLE;
 	hspi4.Init.IOSwap					  = SPI_IO_SWAP_DISABLE;
-	if (HAL_SPI_Init(&hspi4) != HAL_OK)
+	if (HAL_SPI_Init(&hspi4) != HAL_OK) {
 		Error_Handler();
+	}
 	/* USER CODE BEGIN SPI4_Init 2 */
 
 	/* USER CODE END SPI4_Init 2 */
@@ -67,10 +69,10 @@ void MX_SPI4_Init(void)
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef *spiHandle)
 {
+
 	GPIO_InitTypeDef GPIO_InitStruct			 = {0};
 	RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
-	if (spiHandle->Instance == SPI4)
-	{
+	if (spiHandle->Instance == SPI4) {
 		/* USER CODE BEGIN SPI4_MspInit 0 */
 
 		/* USER CODE END SPI4_MspInit 0 */
@@ -79,8 +81,9 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *spiHandle)
 		 */
 		PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SPI4;
 		PeriphClkInitStruct.Spi45ClockSelection	 = RCC_SPI45CLKSOURCE_D2PCLK1;
-		if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+		if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
 			Error_Handler();
+		}
 
 		/* SPI4 clock enable */
 		__HAL_RCC_SPI4_CLK_ENABLE();
@@ -105,8 +108,8 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *spiHandle)
 
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *spiHandle)
 {
-	if (spiHandle->Instance == SPI4)
-	{
+
+	if (spiHandle->Instance == SPI4) {
 		/* USER CODE BEGIN SPI4_MspDeInit 0 */
 
 		/* USER CODE END SPI4_MspDeInit 0 */

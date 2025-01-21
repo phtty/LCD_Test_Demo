@@ -1,5 +1,5 @@
 ---
-BasedOnStyle: Google
+BasedOnStyle: Microsoft
 Language: Cpp
 
 ###################################
@@ -11,11 +11,9 @@ IndentWidth: 4
 TabWidth: 4
 ColumnLimit: 0
 AccessModifierOffset: -4
-NamespaceIndentation: None
+NamespaceIndentation: All
 FixNamespaceComments: false
-BreakBeforeBraces: Allman
-IndentExternBlock: AfterExternBlock
-IndentPPDirectives: None
+BreakBeforeBraces: Linux
 
 ###################################
 #          other styles
@@ -25,27 +23,16 @@ IndentPPDirectives: None
 # for more conf, you can ref: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 #
 
-AllowShortIfStatementsOnASingleLine: false
-AllowShortLoopsOnASingleLine: false
-AllowShortBlocksOnASingleLine: false
-AllowShortAssignmentsOnASingleLine: false
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortIfStatementsOnASingleLine: true
+
+AllowShortLoopsOnASingleLine: true
+
+AllowShortBlocksOnASingleLine: true
 
 IndentCaseLabels: true
-SortIncludes: false
-AlignConsecutiveMacros: AcrossEmptyLines
-AlignConsecutiveAssignments: Consecutive
-RemoveBracesLLVM: true
-AlignTrailingComments: true
 
-BraceWrapping:
-    AfterClass: false
-    AfterControlStatement: true
-    AfterEnum: true
-    AfterFunction: true
-    AfterNamespace: true
-    AfterStruct: true
-    AfterUnion: true
-    BeforeCatch: true
-    BeforeElse: true
-    IndentBraces: false
+SortIncludes: false
+
+AlignConsecutiveMacros: AcrossEmptyLines
+
+AlignConsecutiveAssignments: Consecutive

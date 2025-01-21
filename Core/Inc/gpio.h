@@ -21,6 +21,10 @@
 #ifndef __GPIO_H__
 #define __GPIO_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -38,4 +42,7 @@ void MX_GPIO_Init(void);
 
 /* USER CODE END Prototypes */
 
+#ifdef __cplusplus
+}
+#endif
 #endif /*__ GPIO_H__ */

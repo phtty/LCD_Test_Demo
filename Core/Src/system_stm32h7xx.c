@@ -189,8 +189,7 @@ void SystemInit(void)
 	/* Reset the RCC clock configuration to the default reset state ------------*/
 
 	/* Increasing the CPU frequency */
-	if (FLASH_LATENCY_DEFAULT > (READ_BIT((FLASH->ACR), FLASH_ACR_LATENCY)))
-	{
+	if (FLASH_LATENCY_DEFAULT > (READ_BIT((FLASH->ACR), FLASH_ACR_LATENCY))) {
 		/* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
 		MODIFY_REG(FLASH->ACR, FLASH_ACR_LATENCY, (uint32_t)(FLASH_LATENCY_DEFAULT));
 	}
@@ -205,8 +204,7 @@ void SystemInit(void)
 	RCC->CR &= 0xEAF6ED7FU;
 
 	/* Decreasing the number of wait states because of lower CPU frequency */
-	if (FLASH_LATENCY_DEFAULT < (READ_BIT((FLASH->ACR), FLASH_ACR_LATENCY)))
-	{
+	if (FLASH_LATENCY_DEFAULT < (READ_BIT((FLASH->ACR), FLASH_ACR_LATENCY))) {
 		/* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
 		MODIFY_REG(FLASH->ACR, FLASH_ACR_LATENCY, (uint32_t)(FLASH_LATENCY_DEFAULT));
 	}
@@ -260,8 +258,7 @@ void SystemInit(void)
 
 #if (STM32H7_DEV_ID == 0x450UL)
 	/* dual core CM7 or single core line */
-	if ((DBGMCU->IDCODE & 0xFFFF0000U) < 0x20000000U)
-	{
+	if ((DBGMCU->IDCODE & 0xFFFF0000U) < 0x20000000U) {
 		/* if stm32h7 revY*/
 		/* Change  the switch matrix read issuing capability to 1 for the AXI SRAM target (Target 7) */
 		*((__IO uint32_t *)0x51008108) = 0x000000001U;
@@ -289,8 +286,7 @@ void SystemInit(void)
 #endif													 /* USER_VECT_TAB_ADDRESS */
 
 #else
-	if (READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN) == 0U)
-	{
+	if (READ_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN) == 0U) {
 		/* Enable the FMC interface clock */
 		SET_BIT(RCC->AHB3ENR, RCC_AHB3ENR_FMCEN);
 
@@ -358,8 +354,7 @@ void SystemCoreClockUpdate(void)
 
 	/* Get SYSCLK source -------------------------------------------------------*/
 
-	switch (RCC->CFGR & RCC_CFGR_SWS)
-	{
+	switch (RCC->CFGR & RCC_CFGR_SWS) {
 		case RCC_CFGR_SWS_HSI: /* HSI used as system clock source */
 			common_system_clock = (uint32_t)(HSI_VALUE >> ((RCC->CR & RCC_CR_HSIDIV) >> 3));
 			break;
@@ -382,10 +377,8 @@ void SystemCoreClockUpdate(void)
 			pllfracen = ((RCC->PLLCFGR & RCC_PLLCFGR_PLL1FRACEN) >> RCC_PLLCFGR_PLL1FRACEN_Pos);
 			fracn1	  = (float_t)(uint32_t)(pllfracen * ((RCC->PLL1FRACR & RCC_PLL1FRACR_FRACN1) >> 3));
 
-			if (pllm != 0U)
-			{
-				switch (pllsource)
-				{
+			if (pllm != 0U) {
+				switch (pllsource) {
 					case RCC_PLLCKSELR_PLLSRC_HSI: /* HSI used as PLL clock source */
 
 						hsivalue = (HSI_VALUE >> ((RCC->CR & RCC_CR_HSIDIV) >> 3));
@@ -408,9 +401,7 @@ void SystemCoreClockUpdate(void)
 				}
 				pllp				= (((RCC->PLL1DIVR & RCC_PLL1DIVR_P1) >> 9) + 1U);
 				common_system_clock = (uint32_t)(float_t)(pllvco / (float_t)pllp);
-			}
-			else
-			{
+			} else {
 				common_system_clock = 0U;
 			}
 			break;
@@ -482,8 +473,7 @@ void ExitRun0Mode(void)
 	PWR->CR3 |= PWR_CR3_LDOEN;
 #endif /* SMPS */
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_EXTERNAL_SOURCE_SUPPLY)
 #if defined(SMPS)
@@ -493,57 +483,49 @@ void ExitRun0Mode(void)
 	PWR->CR3 = (PWR->CR3 & ~(PWR_CR3_LDOEN)) | PWR_CR3_BYPASS;
 #endif /* SMPS */
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_DIRECT_SMPS_SUPPLY) && defined(SMPS)
 	/* Exit Run* mode */
 	PWR->CR3 &= ~(PWR_CR3_LDOEN);
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_SMPS_1V8_SUPPLIES_LDO) && defined(SMPS)
 	/* Exit Run* mode */
 	PWR->CR3 |= PWR_CR3_SMPSLEVEL_0 | PWR_CR3_SMPSEN | PWR_CR3_LDOEN;
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_SMPS_2V5_SUPPLIES_LDO) && defined(SMPS)
 	/* Exit Run* mode */
 	PWR->CR3 |= PWR_CR3_SMPSLEVEL_1 | PWR_CR3_SMPSEN | PWR_CR3_LDOEN;
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO) && defined(SMPS)
 	/* Exit Run* mode */
 	PWR->CR3 |= PWR_CR3_SMPSLEVEL_0 | PWR_CR3_SMPSEXTHP | PWR_CR3_SMPSEN | PWR_CR3_LDOEN;
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO) && defined(SMPS)
 	/* Exit Run* mode */
 	PWR->CR3 |= PWR_CR3_SMPSLEVEL_1 | PWR_CR3_SMPSEXTHP | PWR_CR3_SMPSEN | PWR_CR3_LDOEN;
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_SMPS_1V8_SUPPLIES_EXT) && defined(SMPS)
 	/* Exit Run* mode */
 	PWR->CR3 = (PWR->CR3 & ~(PWR_CR3_LDOEN)) | PWR_CR3_SMPSLEVEL_0 | PWR_CR3_SMPSEXTHP | PWR_CR3_SMPSEN | PWR_CR3_BYPASS;
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #elif defined(USE_PWR_SMPS_2V5_SUPPLIES_EXT) && defined(SMPS)
 	/* Exit Run* mode */
 	PWR->CR3 = (PWR->CR3 & ~(PWR_CR3_LDOEN)) | PWR_CR3_SMPSLEVEL_1 | PWR_CR3_SMPSEXTHP | PWR_CR3_SMPSEN | PWR_CR3_BYPASS;
 	/* Wait till voltage level flag is set */
-	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U)
-	{
+	while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {
 	}
 #else
 	/* No system power supply configuration is selected at exit Run* mode */

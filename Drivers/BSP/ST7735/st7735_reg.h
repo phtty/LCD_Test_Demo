@@ -23,8 +23,7 @@
 #define ST7735_REG_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -105,42 +104,42 @@ extern "C"
 #define ST7735_PWR_CTRL6			 0xFCU /* In partial mode + Idle mode: PWCTR6         */
 #define ST7735_VCOM4_LEVEL			 0xFFU /* VCOM 4 level control                        */
 
-	/**
-	 * @}
-	 */
+/**
+ * @}
+ */
 
-	/** @defgroup ST7735_REG_Exported_Types Exported Types
-	 * @{
-	 */
-	typedef int32_t (*ST7735_Write_Func)(void *, uint8_t, uint8_t *, uint32_t);
-	typedef int32_t (*ST7735_Read_Func)(void *, uint8_t, uint8_t *);
-	typedef int32_t (*ST7735_Send_Func)(void *, uint8_t *, uint32_t);
-	typedef int32_t (*ST7735_Recv_Func)(void *, uint8_t *, uint32_t);
+/** @defgroup ST7735_REG_Exported_Types Exported Types
+ * @{
+ */
+typedef int32_t (*ST7735_Write_Func)(void *, uint8_t, uint8_t *, uint32_t);
+typedef int32_t (*ST7735_Read_Func)(void *, uint8_t, uint8_t *);
+typedef int32_t (*ST7735_Send_Func)(void *, uint8_t *, uint32_t);
+typedef int32_t (*ST7735_Recv_Func)(void *, uint8_t *, uint32_t);
 
-	typedef struct
-	{
-		ST7735_Write_Func WriteReg;
-		ST7735_Read_Func ReadReg;
-		ST7735_Send_Func SendData;
-		ST7735_Recv_Func RecvData;
-		void *handle;
-	} st7735_ctx_t;
+typedef struct
+{
+	ST7735_Write_Func WriteReg;
+	ST7735_Read_Func ReadReg;
+	ST7735_Send_Func SendData;
+	ST7735_Recv_Func RecvData;
+	void *handle;
+} st7735_ctx_t;
 
-	/**
-	 * @}
-	 */
+/**
+ * @}
+ */
 
-	/** @defgroup ST7735_REG_Exported_Functions Exported Functions
-	 * @{
-	 */
-	int32_t st7735_write_reg(st7735_ctx_t *ctx, uint8_t reg, uint8_t *pdata, uint32_t length);
-	int32_t st7735_read_reg(st7735_ctx_t *ctx, uint8_t reg, uint8_t *pdata);
-	int32_t st7735_send_data(st7735_ctx_t *ctx, uint8_t *pdata, uint32_t length);
-	int32_t st7735_recv_data(st7735_ctx_t *ctx, uint8_t *pdata, uint32_t length);
+/** @defgroup ST7735_REG_Exported_Functions Exported Functions
+ * @{
+ */
+int32_t st7735_write_reg(st7735_ctx_t *ctx, uint8_t reg, uint8_t *pdata, uint32_t length);
+int32_t st7735_read_reg(st7735_ctx_t *ctx, uint8_t reg, uint8_t *pdata);
+int32_t st7735_send_data(st7735_ctx_t *ctx, uint8_t *pdata, uint32_t length);
+int32_t st7735_recv_data(st7735_ctx_t *ctx, uint8_t *pdata, uint32_t length);
 
-	/**
-	 * @}
-	 */
+/**
+ * @}
+ */
 
 #ifdef __cplusplus
 }
