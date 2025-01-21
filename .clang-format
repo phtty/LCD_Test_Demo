@@ -1,5 +1,5 @@
 ---
-BasedOnStyle: LLVM
+BasedOnStyle: Google
 Language: Cpp
 
 ###################################
@@ -11,9 +11,11 @@ IndentWidth: 4
 TabWidth: 4
 ColumnLimit: 0
 AccessModifierOffset: -4
-NamespaceIndentation: All
+NamespaceIndentation: None
 FixNamespaceComments: false
 BreakBeforeBraces: Allman
+IndentExternBlock: AfterExternBlock
+IndentPPDirectives: None
 
 ###################################
 #          other styles
@@ -26,6 +28,8 @@ BreakBeforeBraces: Allman
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AllowShortBlocksOnASingleLine: false
+AllowShortAssignmentsOnASingleLine: false
+AllowAllParametersOfDeclarationOnNextLine: true
 
 IndentCaseLabels: true
 SortIncludes: false

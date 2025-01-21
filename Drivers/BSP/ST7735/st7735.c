@@ -522,14 +522,14 @@ int32_t ST7735_SetCursor(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos)
 	if (ST7735Ctx.Orientation <= ST7735_ORIENTATION_PORTRAIT_ROT180)
 	{
 		if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
-		{ // 0.96 ST7735
+		{  // 0.96 ST7735
 			if (ST7735Ctx.Panel == HannStar_Panel)
 			{
 				Xpos += 26;
 				Ypos += 1;
 			}
 			else
-			{ // BOE Panel
+			{  // BOE Panel
 				Xpos += 24;
 				Ypos += 0;
 			}
@@ -546,12 +546,12 @@ int32_t ST7735_SetCursor(ST7735_Object_t *pObj, uint32_t Xpos, uint32_t Ypos)
 	else if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
 	{
 		if (ST7735Ctx.Panel == HannStar_Panel)
-		{ // 0.96 ST7735
+		{  // 0.96 ST7735
 			Xpos += 1;
 			Ypos += 26;
 		}
 		else
-		{ // BOE Panel
+		{  // BOE Panel
 			Xpos += 0;
 			Ypos += 24;
 		}
@@ -933,14 +933,14 @@ static int32_t ST7735_SetDisplayWindow(ST7735_Object_t *pObj, uint32_t Xpos, uin
 	if (ST7735Ctx.Orientation <= ST7735_ORIENTATION_PORTRAIT_ROT180)
 	{
 		if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
-		{ // 0.96 ST7735
+		{  // 0.96 ST7735
 			if (ST7735Ctx.Panel == HannStar_Panel)
 			{
 				Xpos += 26;
 				Ypos += 1;
 			}
 			else
-			{ // BOE Panel
+			{  // BOE Panel
 				Xpos += 24;
 				Ypos += 0;
 			}
@@ -957,12 +957,12 @@ static int32_t ST7735_SetDisplayWindow(ST7735_Object_t *pObj, uint32_t Xpos, uin
 	else if (ST7735Ctx.Type == ST7735_0_9_inch_screen)
 	{
 		if (ST7735Ctx.Panel == HannStar_Panel)
-		{ // 0.96 ST7735
+		{  // 0.96 ST7735
 			Xpos += 1;
 			Ypos += 26;
 		}
 		else
-		{ // BOE Panel
+		{  // BOE Panel
 			Xpos += 1;
 			Ypos += 24;
 		}

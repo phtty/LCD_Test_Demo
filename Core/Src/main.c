@@ -67,7 +67,6 @@ static void MPU_Config(void);
  */
 int main(void)
 {
-
 	/* USER CODE BEGIN 1 */
 
 	/* USER CODE END 1 */
@@ -111,7 +110,8 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	// ST7735_LCD_Driver.FillRect(&st7735_pObj, 0, 0, ST7735Ctx.Width, ST7735Ctx.Height, BLACK);
 	// LCD_ShowString(4, 4, ST7735Ctx.Width, 16, 14, (uint8_t *)"this is a test");
-	while (1) {
+	while (1)
+	{
 		HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 		HAL_Delay(500);
 		/* USER CODE END WHILE */
@@ -138,7 +138,9 @@ void SystemClock_Config(void)
 	 */
 	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
 
-	while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
+	while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY))
+	{
+	}
 
 	/** Initializes the RCC Oscillators according to the specified parameters
 	 * in the RCC_OscInitTypeDef structure.
@@ -156,9 +158,8 @@ void SystemClock_Config(void)
 	RCC_OscInitStruct.PLL.PLLRGE		  = RCC_PLL1VCIRANGE_3;
 	RCC_OscInitStruct.PLL.PLLVCOSEL		  = RCC_PLL1VCOWIDE;
 	RCC_OscInitStruct.PLL.PLLFRACN		  = 0;
-	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
 		Error_Handler();
-	}
 
 	/** Initializes the CPU, AHB and APB buses clocks
 	 */
@@ -171,9 +172,8 @@ void SystemClock_Config(void)
 	RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
 	RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
-	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
+	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
 		Error_Handler();
-	}
 }
 
 /* USER CODE BEGIN 4 */
@@ -228,7 +228,8 @@ void Error_Handler(void)
 	/* USER CODE BEGIN Error_Handler_Debug */
 	/* User can add his own implementation to report the HAL error return state */
 	__disable_irq();
-	while (1) {
+	while (1)
+	{
 	}
 	/* USER CODE END Error_Handler_Debug */
 }

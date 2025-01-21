@@ -10,7 +10,7 @@
 #define LCD_RST_SET
 #define LCD_RST_RESET
 // LCD_RS//dc
-#define LCD_RS_SET	 HAL_GPIO_WritePin(LCD_WR_RS_GPIO_Port, LCD_WR_RS_Pin, GPIO_PIN_SET) // PC4
+#define LCD_RS_SET	 HAL_GPIO_WritePin(LCD_WR_RS_GPIO_Port, LCD_WR_RS_Pin, GPIO_PIN_SET)  // PC4
 #define LCD_RS_RESET HAL_GPIO_WritePin(LCD_WR_RS_GPIO_Port, LCD_WR_RS_Pin, GPIO_PIN_RESET)
 // LCD_CS
 #define LCD_CS_SET	 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET)
@@ -161,8 +161,8 @@ void LCD_Light(uint32_t Brightness_Dis, uint32_t time)
 	}
 }
 
-uint16_t POINT_COLOR = 0xFFFF; // 画笔颜色
-uint16_t BACK_COLOR	 = BLACK;  // 背景色
+uint16_t POINT_COLOR = 0xFFFF;	// 画笔颜色
+uint16_t BACK_COLOR	 = BLACK;	// 背景色
 // 在指定位置显示一个字符
 // x,y:起始坐标
 // num:要显示的字符:" "--->"~"
@@ -184,17 +184,17 @@ void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size, uint8_t mod
 	ST7735_GetYSize(&st7735_pObj, &h);
 
 	// 设置窗口
-	num	  = num - ' '; // 得到偏移后的值
+	num	  = num - ' ';	// 得到偏移后的值
 	count = 0;
 
-	if (!mode) // 非叠加方式
+	if (!mode)	// 非叠加方式
 	{
 		for (t = 0; t < size; t++)
 		{
 			if (size == 12)
-				temp = asc2_1206[num][t]; // 调用1206字体
+				temp = asc2_1206[num][t];  // 调用1206字体
 			else
-				temp = asc2_1608[num][t]; // 调用1608字体
+				temp = asc2_1608[num][t];  // 调用1608字体
 
 			for (t1 = 0; t1 < 8; t1++)
 			{
@@ -214,7 +214,7 @@ void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size, uint8_t mod
 				{
 					POINT_COLOR = colortemp;
 					return;
-				} // 超区域了
+				}  // 超区域了
 				if ((y - y0) == size)
 				{
 					y = y0;
@@ -223,20 +223,20 @@ void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size, uint8_t mod
 					{
 						POINT_COLOR = colortemp;
 						return;
-					} // 超区域了
+					}  // 超区域了
 					break;
 				}
 			}
 		}
 	}
-	else // 叠加方式
+	else  // 叠加方式
 	{
 		for (t = 0; t < size; t++)
 		{
 			if (size == 12)
-				temp = asc2_1206[num][t]; // 调用1206字体
+				temp = asc2_1206[num][t];  // 调用1206字体
 			else
-				temp = asc2_1608[num][t]; // 调用1608字体
+				temp = asc2_1608[num][t];  // 调用1608字体
 			for (t1 = 0; t1 < 8; t1++)
 			{
 				if (temp & 0x80)
@@ -251,7 +251,7 @@ void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size, uint8_t mod
 				{
 					POINT_COLOR = colortemp;
 					return;
-				} // 超区域了
+				}  // 超区域了
 				if ((y - y0) == size)
 				{
 					y = y0;
@@ -260,7 +260,7 @@ void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size, uint8_t mod
 					{
 						POINT_COLOR = colortemp;
 						return;
-					} // 超区域了
+					}  // 超区域了
 					break;
 				}
 			}
@@ -280,7 +280,7 @@ void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uin
 	uint8_t x0 = x;
 	width += x;
 	height += y;
-	while ((*p <= '~') && (*p >= ' ')) // 判断是不是非法字符!
+	while ((*p <= '~') && (*p >= ' '))	// 判断是不是非法字符!
 	{
 		if (x >= width)
 		{
@@ -288,7 +288,7 @@ void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uin
 			y += size;
 		}
 		if (y >= height)
-			break; // 退出
+			break;	// 退出
 		LCD_ShowChar(x, y, *p, size, 0);
 		x += size / 2;
 		p++;
