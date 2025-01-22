@@ -559,7 +559,6 @@
         "name": "default",
         "incList": [
           "Core/Inc",
-          "Drivers/CMSIS/Core/Include",
           "Drivers/CMSIS/Device/ST/STM32H7xx/Include",
           "Drivers/CMSIS/Include",
           "Drivers/STM32H7xx_HAL_Driver/Inc",
@@ -569,7 +568,8 @@
         "libList": [],
         "defineList": [
           "USE_HAL_DRIVER",
-          "STM32H750xx"
+          "STM32H750xx",
+          "USE_PWR_LDO_SUPPLY"
         ]
       },
       "builderOptions": {

@@ -2,18 +2,33 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Cortex Debug",
-			"cwd": "${workspaceFolder}",
-			"executable": "./build/Debug/${workspaceFolderBasename}.elf",
-			"request": "launch",
+			"cwd": "${workspaceRoot}",
 			"type": "cortex-debug",
-			"runToEntryPoint": "main",
+			"request": "launch",
+			"name": "Debug: OpenOCD",
 			"servertype": "openocd",
+			"executable": "build/Debug/LCD_Test_Demo.elf",
+			"runToEntryPoint": "main",
 			"configFiles": [
 				"interface/cmsis-dap.cfg",
 				"target/stm32h7x.cfg"
 			],
+			"toolchainPrefix": "arm-none-eabi",
 			"svdFile": "D:/WORK/PROG/C/STM32_SVD/STM32H7_svd_V1.9/STM32H750.svd"
-		}
+		},
+		// {
+		// 	"name": "Cortex Debug",
+		// 	"cwd": "${workspaceFolder}",
+		// 	"executable": "./build/Debug/${workspaceFolderBasename}.elf",
+		// 	"request": "launch",
+		// 	"type": "cortex-debug",
+		// 	"runToEntryPoint": "main",
+		// 	"servertype": "openocd",
+		// 	"configFiles": [
+		// 		"interface/cmsis-dap.cfg",
+		// 		"target/stm32h7x.cfg"
+		// 	],
+		// "svdFile": "D:/WORK/PROG/C/STM32_SVD/STM32H7_svd_V1.9/STM32H750.svd"
+		// }
 	]
 }
